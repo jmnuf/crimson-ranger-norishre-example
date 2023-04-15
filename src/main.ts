@@ -1,9 +1,9 @@
 import './style.css'
 import { UI } from "@peasy-lib/peasy-ui";
 import { Norishre } from "@jmnuf/norishre";
-import type { LinksPageComponent } from './links';
-import type { AboutPageComponent } from './about';
-import type { HomePageComponent } from './home';
+import type { LinksPageComponent } from './pages/links';
+import type { AboutPageComponent } from './pages/about';
+import type { HomePageComponent } from './pages/home';
 
 
 const pages = {
@@ -17,7 +17,7 @@ const ranger = new Norishre({
 		loaded: false,
 		path: "/",
 		async load() {
-			const { home } = await import("./home");
+			const { home } = await import("./pages/home");
 			pages.home = home;
 			return home;
 		}
@@ -26,7 +26,7 @@ const ranger = new Norishre({
 		loaded: false,
 		path: "/about",
 		async load() {
-			const { about } = await import("./about");
+			const { about } = await import("./pages/about");
 			pages.about = about;
 			return about;
 		},
@@ -35,7 +35,7 @@ const ranger = new Norishre({
 		loaded: false,
 		path: "/links",
 		load: async () => {
-			const script = await import("./links");
+			const script = await import("./pages/links");
 			pages.links = script.links;
 			return script.links;
 		}
