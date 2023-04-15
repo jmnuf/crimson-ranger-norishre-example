@@ -9,11 +9,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "typescript": "^4.9.3",
+    "typescript": "^5.0.4",
     "vite": "^4.2.0"
   },
   "dependencies": {
-		"@peasy-lib/peasy-ui": "^0.9.38",
-    "@jmnuf/norishre": "^0.2.2"
+    "@jmnuf/norishre": "^0.2.2",
+    "@peasy-lib/peasy-ui": "^0.9.38"
   }
 }
