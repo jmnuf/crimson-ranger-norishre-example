@@ -13,7 +13,7 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
-    "@jmnuf/norishre": "^0.2.0",
+    "@jmnuf/norishre": "^0.2.1",
     "@peasy-lib/peasy-ui": "^0.9.38"
   }
 }

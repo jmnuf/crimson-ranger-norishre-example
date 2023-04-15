@@ -1,6 +1,6 @@
 import './style.css'
 import { UI } from "@peasy-lib/peasy-ui";
-import { Norishre } from "@jmnuf/norishre";
+import { missNorishre } from "@jmnuf/norishre";
 import type { LinksPageComponent } from './pages/links';
 import type { AboutPageComponent } from './pages/about';
 import type { HomePageComponent } from './pages/home';
@@ -12,29 +12,26 @@ const pages = {
 	links: null as unknown as LinksPageComponent,
 };
 
-const ranger = new Norishre({
+const mistress = missNorishre({
 	home: {
-		loaded: false,
 		path: "/",
-		async load() {
+		async model() {
 			const { home } = await import("./pages/home");
 			pages.home = home;
 			return home;
-		}
+		},
 	},
 	about: {
-		loaded: false,
 		path: "/about",
-		async load() {
+		async model() {
 			const { about } = await import("./pages/about");
 			pages.about = about;
 			return about;
-		},
+		}
 	},
 	links: {
-		loaded: false,
 		path: "/links",
-		load: async () => {
+		async model() {
 			const script = await import("./pages/links");
 			pages.links = script.links;
 			return script.links;
@@ -43,31 +40,28 @@ const ranger = new Norishre({
 });
 
 // Check to wait till the active page is downloaded
-const base_page = ranger.find_arrow_id_by_url();
-if (!(base_page in ranger.models) && base_page !== "%404%") {
-	const time_id = `Loading page ${base_page}`;
+const base_page = mistress.find_arrow_id_by_url();
+if (!(base_page in mistress.models) && base_page !== "%404%") {
+	const time_id = `Initial ${base_page} page load time`;
 	console.time(time_id)
-	await ranger.pull_from_quiver(base_page);
-	let loaded = (base_page in ranger.models);
+	await mistress.pull_from_quiver(base_page);
+	let loaded = (base_page in mistress.models);
 	while (!loaded) {
-		await new Promise(res => setTimeout(res, 10));
-		console.log(base_page, ranger.models);
-		loaded = (base_page in ranger.models);
+		void await new Promise(res => setTimeout(res, 10));
+		loaded = (base_page in mistress.models);
 	}
 	console.timeEnd(time_id);
 }
 
 const nav_links = [
-	ranger.new_link("home"),
-	ranger.new_link("about"),
-	ranger.new_link("links"),
+	mistress.new_link("home"),
+	mistress.new_link("about"),
+	mistress.new_link("links"),
 ];
-
-console.log(nav_links);
 
 const app = {
 	nav_links,
-	ranger,
+	ranger: mistress,
 	pages,
 };
 
@@ -78,4 +72,4 @@ UI.create(document.body, app_template, app);
 app_template.remove();
 
 // @ts-ignore
-window.norishre = ranger;
+window.norishre = mistress;

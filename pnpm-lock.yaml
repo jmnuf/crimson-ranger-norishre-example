@@ -1,13 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@jmnuf/norishre': ^0.2.0
+  '@jmnuf/norishre': ^0.2.1
   '@peasy-lib/peasy-ui': ^0.9.38
   typescript: ^4.9.3
   vite: ^4.2.0
 
 dependencies:
-  '@jmnuf/norishre': 0.2.0_@peasy-lib+peasy-ui@0.9.38
+  '@jmnuf/norishre': 0.2.1_@peasy-lib+peasy-ui@0.9.38
   '@peasy-lib/peasy-ui': 0.9.38
 
 devDependencies:
@@ -214,8 +214,8 @@ packages:
     dev: true
     optional: true
 
-  /@jmnuf/norishre/0.2.0_@peasy-lib+peasy-ui@0.9.38:
-    resolution: {integrity: sha512-yMJ1G/VDAQBsr/Ae7dP6mRXGxF3WT4hnO4qFiC08xNdVm2cIqrVLFNHs2uVOoXyBeytw5VqOJ9rqHeJnSGjqqQ==}
+  /@jmnuf/norishre/0.2.1_@peasy-lib+peasy-ui@0.9.38:
+    resolution: {integrity: sha512-zFsChhiAD7L/UJH/30zse5HFPZ+izNgv6d+Muyq8twz9U+rjkqYzhQ0CQAdR4IIFHoZDJWj/Vy1Htnb2R533wQ==}
     peerDependencies:
       '@peasy-lib/peasy-ui': ^0.9.38
     dependencies:
