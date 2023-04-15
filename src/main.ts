@@ -2,16 +2,14 @@ import './style.css'
 import { UI } from "@peasy-lib/peasy-ui";
 import { Norishre } from "@jmnuf/norishre";
 import type { LinksPageComponent } from './links';
+import type { AboutPageComponent } from './about';
 
 const home = {
 	template: `<h1>Home page</h1>`,
 };
-const about = {
-	template: `<h1>About Me page</h1>`,
-};
 
 const pages = {
-	home, about,
+	home, about: null as unknown as AboutPageComponent,
 	links: null as unknown as LinksPageComponent,
 };
 
@@ -22,9 +20,13 @@ const ranger = new Norishre({
 		model: home
 	},
 	about: {
-		loaded: true,
+		loaded: false,
 		path: "/about",
-		model: about,
+		async load() {
+			const { about } = await import("./about");
+			pages.about = about;
+			return about;
+		},
 	},
 	links: {
 		loaded: false,
@@ -63,6 +65,7 @@ console.log(nav_links);
 const app = {
 	nav_links,
 	ranger,
+	pages,
 };
 
 const app_template = document.querySelector("#app-template")!;
