@@ -40,36 +40,38 @@ const mistress = missNorishre({
 });
 
 // Check to wait till the active page is downloaded
-const base_page = mistress.find_arrow_id_by_url();
-if (!(base_page in mistress.models) && base_page !== "%404%") {
-	const time_id = `Initial ${base_page} page load time`;
-	console.time(time_id)
-	await mistress.pull_from_quiver(base_page);
-	let loaded = (base_page in mistress.models);
-	while (!loaded) {
-		void await new Promise(res => setTimeout(res, 10));
-		loaded = (base_page in mistress.models);
+(async function run() {
+	const base_page = mistress.find_arrow_id_by_url();
+	if (!(base_page in mistress.models) && base_page !== "%404%") {
+		const time_id = `Initial ${base_page} page load time`;
+		console.time(time_id);
+		await mistress.pull_from_quiver(base_page);
+		let loaded = (base_page in mistress.models);
+		while (!loaded) {
+			void await new Promise(res => setTimeout(res, 10));
+			loaded = (base_page in mistress.models);
+		}
+		console.timeEnd(time_id);
 	}
-	console.timeEnd(time_id);
-}
-
-const nav_links = [
-	mistress.new_link("home"),
-	mistress.new_link("about"),
-	mistress.new_link("links"),
-];
-
-const app = {
-	nav_links,
-	ranger: mistress,
-	pages,
-};
-
-const app_template = document.querySelector("#app-template")!;
-
-UI.create(document.body, app_template, app);
-
-app_template.remove();
-
-// @ts-ignore
-window.norishre = mistress;
+	
+	const nav_links = [
+		mistress.new_link("home"),
+		mistress.new_link("about"),
+		mistress.new_link("links"),
+	];
+	
+	const app = {
+		nav_links,
+		ranger: mistress,
+		pages,
+	};
+	
+	const app_template = document.querySelector("#app-template")!;
+	
+	UI.create(document.body, app_template, app);
+	
+	app_template.remove();
+	
+	// @ts-ignore
+	window.norishre = mistress;
+})();
