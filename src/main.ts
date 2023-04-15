@@ -3,21 +3,24 @@ import { UI } from "@peasy-lib/peasy-ui";
 import { Norishre } from "@jmnuf/norishre";
 import type { LinksPageComponent } from './links';
 import type { AboutPageComponent } from './about';
+import type { HomePageComponent } from './home';
 
-const home = {
-	template: `<h1>Home page</h1>`,
-};
 
 const pages = {
-	home, about: null as unknown as AboutPageComponent,
+	home: null as unknown as HomePageComponent,
+	about: null as unknown as AboutPageComponent,
 	links: null as unknown as LinksPageComponent,
 };
 
 const ranger = new Norishre({
 	home: {
-		loaded: true,
+		loaded: false,
 		path: "/",
-		model: home
+		async load() {
+			const { home } = await import("./home");
+			pages.home = home;
+			return home;
+		}
 	},
 	about: {
 		loaded: false,
@@ -39,8 +42,8 @@ const ranger = new Norishre({
 	}
 });
 
+// Check to wait till the active page is downloaded
 const base_page = ranger.find_arrow_id_by_url();
-
 if (!(base_page in ranger.models) && base_page !== "%404%") {
 	const time_id = `Loading page ${base_page}`;
 	console.time(time_id)
