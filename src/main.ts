@@ -41,18 +41,10 @@ const mistress = missNorishre({
 
 // Check to wait till the active page is downloaded
 (async function run() {
-	const base_page = mistress.find_arrow_id_by_url();
-	if (!(base_page in mistress.models) && base_page !== "%404%") {
-		const time_id = `Initial ${base_page} page load time`;
-		console.time(time_id);
-		await mistress.pull_from_quiver(base_page);
-		let loaded = (base_page in mistress.models);
-		while (!loaded) {
-			void await new Promise(res => setTimeout(res, 10));
-			loaded = (base_page in mistress.models);
-		}
-		console.timeEnd(time_id);
-	}
+	const time_id = `Initial ${location.pathname} page load time`;
+	console.time(time_id);
+	void await mistress.loadDrawnArrow();
+	console.timeEnd(time_id);
 	
 	const nav_links = [
 		mistress.new_link("home"),
